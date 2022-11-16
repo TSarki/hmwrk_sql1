@@ -1,14 +1,14 @@
 CREATE TABLE IF NOT EXISTS Album(
 	id SERIAL PRIMARY KEY,
-	artist_name VARCHAR(60) NOT NULL,
 	album_name VARCHAR(60) NOT NULL,
 	release_date date	
 );
 
 CREATE TABLE IF NOT EXISTS Track(
-	id SERIAL PRIMARY KEY REFERENCES Album(id),
+	id SERIAL PRIMARY KEY,
 	duration INTEGER NOT NULL,
-	album_name VARCHAR(60) NOT NULL
+	album_name VARCHAR(60) NOT NULL,
+	album_of_track INTEGER NOT NULL REFERENCES Album(id)
 );
 
 CREATE TABLE IF NOT EXISTS Jenre(
@@ -36,9 +36,15 @@ CREATE TABLE IF NOT EXISTS Digest(
 	track_id INTEGER NOT NULL REFERENCES TracK(id)
 );
 
-CREATE TABLE IF NOT EXISTS ArtistJenres(
+CREATE TABLE IF NOT EXISTS Artist_Jenres(
 	artist_id INTEGER REFERENCES Artist(id),
 	jenre_id INTEGER REFERENCES Jenre(id),
-	CONSTRAINT pk1 PRIMARY KEY (artist_id, jenre_id)
+	CONSTRAINT ajpk PRIMARY KEY (artist_id, jenre_id)
+);
+
+CREATE TABLE IF NOT EXISTS Digest_Tracks(
+	digest_id INTEGER REFERENCES Digest(id),
+	track_id INTEGER REFERENCES Track(id),
+	CONSTRAINT dtpk PRIMARY KEY (digest_id, track_id)
 );
 	
