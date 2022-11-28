@@ -13,6 +13,9 @@ CREATE TABLE IF NOT EXISTS Track(
 );
 
 
+ALTER TABLE Track
+ALTER COLUMN album_of_track ;
+
 CREATE TABLE IF NOT EXISTS Jenre(
 	id SERIAL PRIMARY KEY,
 	jenre_name VARCHAR(30) NOT NULL
@@ -23,8 +26,6 @@ CREATE TABLE IF NOT EXISTS Artist(
 	artist_name VARCHAR(60) NOT NULL,
 	album VARCHAR(60)
 );
-
- 
 
 CREATE TABLE IF NOT EXISTS Artists_Albums(
 	artist_id INTEGER REFERENCES Artist(id),
